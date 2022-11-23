@@ -151,6 +151,10 @@ public class UsuarioServicio implements UserDetailsService {
         return usrepo.getOne(id);
     }
     
+    public Usuario buscarPorEmail(String email) {
+        return usrepo.buscarPorEmail(email);
+    }
+    
     @Transactional
     public void darDeBajaPeriodista(String id) {
         Usuario usuario=usrepo.getOne(id);

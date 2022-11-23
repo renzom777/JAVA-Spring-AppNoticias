@@ -42,6 +42,7 @@ public class PortalControlador {
         try {
             usserv.registrarUsuario(archivo, nombreUsuario, password, password2, email);
             modelo.put("exito", "Usuario registrado");
+            modelo.put("usuario", usserv.buscarPorEmail(email));
             return "index.html";
         } catch (Exception e) {
             modelo.put("error", e.getMessage());

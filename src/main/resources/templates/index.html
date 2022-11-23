@@ -28,7 +28,7 @@ and open the template in the editor.
                 <h2>¿Qué deseas realizar, <span th:text="${usuario.nombreUsuario}"></span>?</h2>
                 <br>
                 <a th:if="${usuario.imagen != null}" class="d-flex align-items-center">
-                    <img class="m-auto" th:src="@{/imagen/perfil/__${session.usuariosession.id}__}" width="300" >
+                    <img class="m-auto" th:src="@{/imagen/perfil/__${usuario.id}__}" width="300" >
                 </a>
             </div>
             <div class="col-5">
