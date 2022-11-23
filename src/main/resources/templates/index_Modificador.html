@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    
+    <head th:replace="/fragments/head :: head"></head>
+    
+    <body>
+        
+        <header th:replace="/fragments/validacion :: header"></header>
+
+        <div class="container my-5">
+            <h2>¿Qué deseas realizar, <span th:text="${session.usuariosession.nombreUsuario}"></span>?</h2>
+            <br>
+            <br>
+            <a href="/admin/crear"><button type="button" class="btn btn-primary">Crear Noticia</button></a>
+            <br>
+            <br>
+            <a href="/admin/listaModificar"><button type="button" class="btn btn-primary">Modificar Noticia</button></a>
+            <br>
+            <br>
+            <div sec:authorize="hasRole('ADMINISTRADOR')">
+                <a href="/admin/darAlta"><button type="button" class="btn btn-primary">Dar de alta a Noticia</button></a>
+                <br>
+                <br>
+                <a href="/admin/darBaja"><button type="button" class="btn btn-warning">Dar de baja a Noticia</button></a>
+                <br>
+                <br>
+                <a href="/admin/eliminar"><button type="button" class="btn btn-danger">Eliminar Noticia</button></a>
+                <br>
+                <br>
+                <br>
+                <a href="/admin/fijarSueldo"><button type="button" class="btn btn-primary">Fijar sueldo de periodista</button></a>
+                <br>
+                <br>
+                <a href="/admin/darDeAltaPeriodista"><button type="button" class="btn btn-primary">Dar de alta a periodista</button></a>
+                <br>
+                <br>
+                <a href="/admin/darDeBajaPeriodista"><button type="button" class="btn btn-warning">Dar de baja a periodista</button></a>
+                <br>
+                <br>
+            </div>
+            <br>
+            <a href="/inicio/inicio"><button type="button" class="btn btn-dark">Ir a inicio</button></a>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="/fragments/head :: head"></head>
+    
+    <body class="p-3 mb-2 bg-secondary text-white">
+        
+        <div class="container my-5 p-3 mb-2 bg-warning text-dark">
+            <div class="row row-cols-1 row-cols-3 g-4">
+                <div class="col my-1" th:each="noticia : ${noticias}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${noticia.titulo}"></h5>
+                            <p class="card-text" th:text="${noticia.parteCuerpo}"></p>
+                            <a th:href="@{/noticia/mostrar/__${noticia.id}__}"><p class="card-text">Ver noticia</p></a>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Publicada el <span th:text="${noticia.fecha}"></span></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="/fragments/head :: head"></head>
+    
+    <body class="p-3 mb-2 bg-secondary text-white">
+        
+        <header th:replace="/fragments/validacion :: header"></header>
+
+        <div class="container my-5 p-3 mb-2 bg-warning text-dark">
+            <div>
+                <h2>Completa los campos solicitados</h2>
+                <form th:action="@{/registro}" method="POST">
+                    <div class="form-group my-3 col-6">
+                        <label>Ingresar nombre de usuario</label>
+                        <input class="form-control" type="text" name="nombreUsuario" placeholder="Nombre" th:value="${nombreUsuario}">
+                    </div>
+                    <div class="form-group my-3 col-6">
+                        <label>Ingresar direccion de correo electronico</label>
+                        <input class="form-control" type="text" name="email" placeholder="Email" th:value="${email}">
+                    </div>
+                    <div class="form-group my-3 col-6">
+                        <label>Ingresar contraseña</label>
+                        <input class="form-control" type="password" name="password" placeholder="Contraseña" th:value="${password}">
+                    </div>
+                    <div class="form-group my-3 col-6">
+                        <label>Ingresar contraseña nuevamente</label>
+                        <input type="password" class="form-control" name="password2" placeholder="Contraseña nuevamente" th:value="${password2}">
+                        <br>
+                        <button type="submit" class="btn btn-dark btn-sm">Cargar</button>
+                        <br>
+                        <br>
+                        <a href="/"><button type="button" class="btn btn-dark btn-sm">Cancelar</button></a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

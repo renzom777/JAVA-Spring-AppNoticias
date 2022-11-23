@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="/fragments/head :: head"></head>
+    
+    <body>
+        <div class="container my-5">
+            <form th:action="@{/admin/eliminar/__${noticia.id}__}" method="POST">
+                <input hidden th:value="${id}" name="id">
+                <h1>¿Confirma la eliminacion?</h1>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-danger">Confimar</button>
+                <br>
+                <br>
+                <a href="/admin/dashboard"><button type="button" class="btn btn-primary">Cancelar</button></a>
+            </form>
+        </div>
+    </body>
+</html>

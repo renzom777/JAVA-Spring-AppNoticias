@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    
+    <head th:replace="/fragments/head :: head"></head>
+    
+    <body>
+        
+        <header th:replace="/fragments/validacion :: header"></header>
+
+        <div class="container-fluid m-5 ">
+            <form th:action="@{/admin/modificarCuerpo/__${noticia.id}__}" method="POST">
+                <input hidden th:value="${id}" name="id">
+                <div class="form-group my-3 col-6">
+                    <label>Ingresar nuevo cuerpo</label>
+                    <textarea th:value="${noticia.cuerpo}" class="form-control" name="cuerpo" rows="5" th:text="${noticia.cuerpo}"></textarea>
+                    <br>
+                    <button type="submit">Cambiar</button>
+                    <br>
+                    <br>
+                    <a href="/admin/dashboard"><button type="button">Cancelar</button></a>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

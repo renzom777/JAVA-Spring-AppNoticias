@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="/fragments/head :: head"></head>
+    
+    <body>
+        <div class="container my-5">
+            <form th:action="${action}=='baja'? @{/admin/darDeBajaPeriodista_} : @{/admin/darDeAltaPeriodista_}" method="POST">
+                <div class="form-group my-3">
+                    <h2>Seleccionar Periodista</h2>
+                    <br>
+                    <select name="id">
+                        <option>Seleccionar Periodista</option>
+                        <option  th:each="usuario : ${usuarios}"
+                                 th:text="${usuario.nombreUsuario}"
+                                 th:value="${usuario.id}">
+                        </option>
+                    </select>
+                    <br>
+                    <br>
+                    <button type="submit">Confirmar</button>
+                    <br>
+                    <br>
+                    <a href="/admin/dashboard"><button type="button">Cancelar</button></a>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

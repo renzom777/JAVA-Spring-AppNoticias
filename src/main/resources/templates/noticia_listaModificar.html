@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    
+    <head th:replace="/fragments/head :: head"></head>
+    
+    <body>
+        <div class="container m-5" >
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Modificar Titulo</th>
+                        <th scope="col">Modificar Cuerpo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="noticia:${noticias}">
+                        <td th:text="${noticia.titulo}"></td>
+                        <td>
+                            <a th:href="@{/admin/modificarTitulo/__${noticia.id}__}">Modificar</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/modificarCuerpo/__${noticia.id}__}">Modificar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
