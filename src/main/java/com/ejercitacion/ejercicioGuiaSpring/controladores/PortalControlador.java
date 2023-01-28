@@ -87,24 +87,96 @@ public class PortalControlador {
     public String perfil(ModelMap modelo, HttpSession session){
         Usuario usuario=(Usuario) session.getAttribute("usuariosession");
         modelo.put("usuario", usserv.getOne(usuario.getId()));
-        return "usuario_modificar.html";
+        return "usuario_modificaciones.html";
     }
     
     @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
-    @PostMapping("/perfil/{id}")
-    public String actualizar(MultipartFile archivo,@PathVariable String id, @RequestParam String nombreUsuario, @RequestParam String email, 
-            @RequestParam String password,@RequestParam String password2, ModelMap modelo) {
-
+    @GetMapping("/perfil/modificarNombre")
+    public String modificarNombre(ModelMap modelo, HttpSession session) {
+        Usuario usuario=(Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usserv.getOne(usuario.getId()));
+        return "usuario_modificarNombre.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
+    @PostMapping("/perfil/modificarNombre/{id}")
+    public String modificarNombre_(@PathVariable String id, @RequestParam String nombreUsuario, ModelMap modelo) {
         try {
-            usserv.actualizar(archivo, id, nombreUsuario, email, password, password2);
+            usserv.actualizarNombre(nombreUsuario, id);
             modelo.put("exito", "Usuario actualizado correctamente");
             modelo.put("usuario", usserv.getOne(id));
             return "index.html";
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
-            return "usuario_modificar.html";
+            return "usuario_modificarNombre.html";
         }
-
     }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
+    @GetMapping("/perfil/modificarContrasenia")
+    public String modificarContrasenia(ModelMap modelo, HttpSession session) {
+        Usuario usuario=(Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usserv.getOne(usuario.getId()));
+        return "usuario_modificarContrasenia.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
+    @PostMapping("/perfil/modificarContrasenia/{id}")
+    public String modificarContrasenia_(@PathVariable String id, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
+        try {
+            usserv.actualizarContrasenia(password, password2, id);
+            modelo.put("exito", "Usuario actualizado correctamente");
+            modelo.put("usuario", usserv.getOne(id));
+            return "index.html";
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            return "usuario_modificarContrasenia.html";
+        }
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
+    @GetMapping("/perfil/modificarFoto")
+    public String modificarFoto(ModelMap modelo, HttpSession session) {
+        Usuario usuario=(Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usserv.getOne(usuario.getId()));
+        return "usuario_modificarFoto.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
+    @PostMapping("/perfil/modificarFoto/{id}")
+    public String modificarFoto_(@PathVariable String id, MultipartFile archivo, ModelMap modelo) {
+        try {
+            usserv.actualizarFoto(archivo, id);
+            modelo.put("exito", "Usuario actualizado correctamente");
+            modelo.put("usuario", usserv.getOne(id));
+            return "index.html";
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            return "usuario_modificarFoto.html";
+        }
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
+    @GetMapping("/perfil/modificarEmail")
+    public String modificarEmail(ModelMap modelo, HttpSession session) {
+        Usuario usuario=(Usuario) session.getAttribute("usuariosession");
+        modelo.put("usuario", usserv.getOne(usuario.getId()));
+        return "usuario_modificarEmail.html";
+    }
+    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO', 'ROLE_ADMINISTRADOR', 'ROLE_PERIODISTA')")
+    @PostMapping("/perfil/modificarEmail/{id}")
+    public String modificarEmail_(@PathVariable String id, @RequestParam String email, ModelMap modelo) {
+        try {
+            usserv.actualizarEmail(email, id);
+            modelo.put("exito", "Usuario actualizado correctamente");
+            modelo.put("usuario", usserv.getOne(id));
+            return "index.html";
+        } catch (Exception ex) {
+            modelo.put("error", ex.getMessage());
+            return "usuario_modificarEmail.html";
+        }
+    }
+    
 
 }

@@ -10,6 +10,7 @@ import com.ejercitacion.ejercicioGuiaSpring.entidades.Usuario;
 import com.ejercitacion.ejercicioGuiaSpring.repositorios.NoticiaRepositorio;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -24,7 +25,14 @@ public class NoticiaServicio {
     private NoticiaRepositorio notrepo;
 
     @Autowired
-    UsuarioServicio usserv;
+    private UsuarioServicio usserv;
+    
+    public static Comparator<Noticia> compararFecha = new Comparator<Noticia>() {
+        @Override
+        public int compare(Noticia n1, Noticia n2) {
+            return n2.getFecha().compareTo(n1.getFecha());
+        }
+    };
 
     @Transactional
     public void crearNoticia(String titulo, String cuerpo, String id) throws Exception {
@@ -59,7 +67,7 @@ public class NoticiaServicio {
 
         List<Noticia> noticias = new ArrayList();
         noticias = notrepo.buscarPorParteDeTitulo(titulo);
-
+        noticias.sort(compararFecha);
         return noticias;
     }
 
@@ -71,7 +79,7 @@ public class NoticiaServicio {
 
         List<Noticia> noticias = new ArrayList();
         noticias = notrepo.buscarPorCuerpo(cuerpo);
-
+        noticias.sort(compararFecha);
         return noticias;
     }
 
@@ -158,7 +166,9 @@ public class NoticiaServicio {
     }
 
     public List<Noticia> listarTodoAlta() {
-        return notrepo.buscarTodoAlta();
+        List<Noticia> noticias = notrepo.buscarTodoAlta();
+        noticias.sort(compararFecha);
+        return noticias;
     }
 
     public List<Noticia> listarTodoBaja() {
@@ -166,7 +176,9 @@ public class NoticiaServicio {
     }
 
     public List<Noticia> listarTodo() {
-        return notrepo.findAll();
+        List<Noticia> noticias = notrepo.findAll();
+        noticias.sort(compararFecha);
+        return noticias;
     }
 
     public List<Noticia> listarPorPeriodista(String id) {

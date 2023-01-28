@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="/fragments/head :: head"></head>
+
+    <body class="p-3 mb-2 bg-secondary text-white">
+
+        <header th:replace="/fragments/validacion :: header"></header>
+
+        <div class="container my-5 p-3 mb-2 bg-warning text-dark">
+            <h2>Ingresa la nueva direccion de correo electronico</h2>
+            <form th:action="@{/perfil/modificarEmail/__${session.usuariosession.id}__}" method="POST">
+                <input hidden th:value="${usuario.id}" name="id">
+                <div class="form-group my-3 col-6">
+                    <input class="form-control" type="text" name="email" placeholder="Email" th:value="${usuario.email}">
+                    <br>
+                    <button type="submit" class="btn btn-dark btn-sm">Cargar</button>
+                    <br>
+                    <br>
+                    <a href="/inicio/inicio"><button type="button" class="btn btn-dark btn-sm">Cancelar</button></a>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

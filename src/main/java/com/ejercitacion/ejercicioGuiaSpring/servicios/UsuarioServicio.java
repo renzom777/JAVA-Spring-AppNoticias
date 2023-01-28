@@ -66,6 +66,93 @@ public class UsuarioServicio implements UserDetailsService {
     }
     
     @Transactional
+    public void actualizarNombre(String nombreUsuario, String idUsuario) throws Exception {
+        validarNombre(nombreUsuario);
+        
+        Optional<Usuario> respuesta = usrepo.findById(idUsuario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setNombreUsuario(nombreUsuario);
+            usrepo.save(usuario);
+        }
+    }
+    
+    @Transactional
+    public void actualizarContrasenia(String password, String password2, String idUsuario) throws Exception {
+        validarContrasenia(password, password2);
+        
+        Optional<Usuario> respuesta = usrepo.findById(idUsuario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setPassword(passwordEncoder.encode(password));
+            usrepo.save(usuario);
+        }
+    }
+    
+    @Transactional
+    public void actualizarFoto(MultipartFile archivo, String idUsuario) throws Exception {
+        Optional<Usuario> respuesta = usrepo.findById(idUsuario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            String idImagen = null;
+            
+            if (usuario.getImagen() != null) {
+                idImagen = usuario.getImagen().getId();
+            }
+            
+            Imagen imagen = imserv.actualizar(archivo, idImagen);
+            usuario.setImagen(imagen);
+            usrepo.save(usuario);
+        }
+    }
+    
+    @Transactional
+    public void actualizarEmail(String email, String idUsuario) throws Exception {
+        validarEmail(email);
+        
+        Optional<Usuario> respuesta = usrepo.findById(idUsuario);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setEmail(email);
+            usrepo.save(usuario);
+        }
+    }
+    
+    public void validarEmail(String email) throws Exception {
+        if (email.isEmpty() || email == null) {
+            throw new Exception("La direccion de correo no puede ser nula");
+        }
+        if (!email.contains("@")) {
+            throw new Exception("La direccion de correo no tiene la forma correcta");
+        }
+        if (usrepo.listarEmails().contains(email)) {
+            throw new Exception("El email ingresado ya existe");
+        }
+    }
+    
+    public void validarNombre(String nombreUsuario) throws Exception {
+        if (nombreUsuario.isEmpty() || nombreUsuario == null) {
+            throw new Exception("El nombre de usuario no puede ser nulo");
+        }
+        if (usrepo.listarNombres().contains(nombreUsuario)) {
+            throw new Exception("El nombre ingresado ya existe");
+        }    
+    }
+    
+    public void validarContrasenia(String password, String password2) throws Exception {
+        if (password.isEmpty() || password == null) {
+            throw new Exception("La contraseña no puede ser nula");
+        }
+        if (password.length()<6) {
+            throw new Exception("La contraseña debe tener 6 o mas caracteres");
+        }
+
+        if (!password.equals(password2)) {
+            throw new Exception("Ambas contraseñas ingresadas deben coincidir");
+        }
+    }
+    
+    @Transactional
     public void actualizar(MultipartFile archivo, String idUsuario, String nombreUsuario, String email, String password, String password2) throws Exception {
 
         validar(nombreUsuario, password, password2, email);
